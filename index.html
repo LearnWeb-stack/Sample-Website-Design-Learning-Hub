@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeConnect - Student Learning Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-teal: #00D9C0;
+            --secondary-orange: #FF6B35;
+            --dark-navy: #0A1929;
+            --mid-navy: #1A2F42;
+            --light-blue: #2D4F6C;
+            --accent-purple: #9D4EDD;
+            --text-light: #E8F1F5;
+            --text-gray: #B0BEC5;
+            --success-green: #00E676;
+            --warning-yellow: #FFD600;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: var(--dark-navy);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        header {
+            background: linear-gradient(135deg, var(--mid-navy) 0%, var(--dark-navy) 100%);
+            border-bottom: 3px solid var(--primary-teal);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 217, 192, 0.15);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary-teal);
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: var(--secondary-orange);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--light-blue);
+            color: var(--primary-teal);
+        }
+
+        .nav-links a.active {
+            background-color: var(--primary-teal);
+            color: var(--dark-navy);
+        }
+
+        /* Page Container */
+        .page {
+            display: none;
+            min-height: calc(100vh - 100px);
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--mid-navy) 0%, var(--light-blue) 100%);
+            padding: 5rem 2rem;
+            margin-bottom: 3rem;
+            border-radius: 0 0 50px 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -10%;
+            width: 40%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 20px,
+                rgba(0, 217, 192, 0.05) 20px,
+                rgba(0, 217, 192, 0.05) 40px
+            );
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+        }
+
+        .hero .highlight {
+            color: var(--primary-teal);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-gray);
+            max-width: 700px;
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-teal);
+            color: var(--dark-navy);
+        }
+
+        .btn-primary:hover {
+            background-color: #00F0D7;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--primary-teal);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-teal);
+            color: var(--dark-navy);
+        }
+
+        /* Section Headers */
+        .section-header {
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            max-width: 700px;
+        }
+
+        /* Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: linear-gradient(135deg, var(--mid-navy) 0%, var(--light-blue) 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(0, 217, 192, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .card:hover {
+            border-color: var(--primary-teal);
+            box-shadow: 0 12px 48px rgba(0, 217, 192, 0.2);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-teal);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark-navy);
+        }
+
+        .card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+        }
+
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: var(--mid-navy);
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid var(--primary-teal);
+        }
+
+        .stat-number {
+            font-family: 'Syne', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary-teal);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        /* Schedule Page */
+        .schedule-filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--mid-navy);
+            color: var(--text-light);
+            border: 2px solid var(--light-blue);
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary-teal);
+        }
+
+        .filter-btn.active {
+            background-color: var(--primary-teal);
+            color: var(--dark-navy);
+            border-color: var(--primary-teal);
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .session-card {
+            background: var(--mid-navy);
+            border-radius: 16px;
+            padding: 2rem;
+            border-left: 5px solid var(--primary-teal);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .session-card.tutoring {
+            border-left-color: var(--secondary-orange);
+        }
+
+        .session-card.study-group {
+            border-left-color: var(--accent-purple);
+        }
+
+        .session-badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .badge-tutoring {
+            background-color: rgba(255, 107, 53, 0.2);
+            color: var(--secondary-orange);
+        }
+
+        .badge-study {
+            background-color: rgba(157, 78, 221, 0.2);
+            color: var(--accent-purple);
+        }
+
+        .session-card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .session-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin: 1.5rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--text-gray);
+        }
+
+        .meta-icon {
+            color: var(--primary-teal);
+            font-weight: 600;
+        }
+
+        .session-card .btn {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        /* Dashboard Page */
+        .dashboard-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .overview-card {
+            background: linear-gradient(135deg, var(--mid-navy) 0%, var(--light-blue) 100%);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid var(--primary-teal);
+        }
+
+        .overview-card h4 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .overview-value {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--primary-teal);
+            margin-bottom: 0.5rem;
+        }
+
+        .overview-progress {
+            height: 8px;
+            background-color: var(--dark-navy);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .overview-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-teal), var(--secondary-orange));
+            border-radius: 10px;
+        }
+
+        .progress-label {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            margin-top: 0.5rem;
+        }
+
+        .activity-list {
+            background: var(--mid-navy);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            background: var(--light-blue);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary-teal);
+        }
+
+        .activity-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .activity-item.completed {
+            border-left-color: var(--success-green);
+        }
+
+        .activity-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-teal);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--dark-navy);
+            margin-right: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .activity-icon.completed {
+            background: var(--success-green);
+        }
+
+        .activity-details {
+            flex: 1;
+        }
+
+        .activity-details h4 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .activity-details p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+
+        .activity-status {
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .status-complete {
+            background-color: rgba(0, 230, 118, 0.2);
+            color: var(--success-green);
+        }
+
+        .status-progress {
+            background-color: rgba(255, 214, 0, 0.2);
+            color: var(--warning-yellow);
+        }
+
+        /* Resources Page */
+        .resources-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--light-blue);
+            padding-bottom: 0.5rem;
+        }
+
+        .tab-btn {
+            padding: 1rem 2rem;
+            background: transparent;
+            border: none;
+            color: var(--text-gray);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 10px 10px 0 0;
+            font-family: 'Syne', sans-serif;
+        }
+
+        .tab-btn:hover {
+            background-color: var(--light-blue);
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary-teal);
+            color: var(--dark-navy);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .resource-card {
+            background: var(--mid-navy);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border: 2px solid var(--light-blue);
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .resource-card:hover {
+            border-color: var(--primary-teal);
+        }
+
+        .resource-thumbnail {
+            width: 150px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary-teal) 0%, var(--accent-purple) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            flex-shrink: 0;
+        }
+
+        .resource-content {
+            flex: 1;
+        }
+
+        .resource-content h4 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .resource-content p {
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .resource-meta {
+            display: flex;
+            gap: 2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+        }
+
+        .resource-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-small {
+            padding: 0.6rem 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Quiz Section */
+        .quiz-container {
+            background: var(--mid-navy);
+            border-radius: 20px;
+            padding: 3rem;
+            border: 2px solid var(--primary-teal);
+        }
+
+        .quiz-question {
+            margin-bottom: 2rem;
+        }
+
+        .quiz-question h4 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-teal);
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .quiz-option {
+            padding: 1.2rem 1.5rem;
+            background: var(--light-blue);
+            border-radius: 12px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            font-size: 1rem;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary-teal);
+            background: var(--mid-navy);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--primary-teal);
+            background: rgba(0, 217, 192, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--mid-navy);
+            padding: 3rem 2rem;
+            margin-top: 5rem;
+            border-top: 3px solid var(--primary-teal);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h4 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-teal);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: var(--text-gray);
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-teal);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid var(--light-blue);
+            text-align: center;
+            color: var(--text-gray);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .cards-grid,
+            .schedule-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .resource-card {
+                flex-direction: column;
+            }
+
+            .resource-thumbnail {
+                width: 100%;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Code<span>Connect</span></div>
+            <ul class="nav-links">
+                <li><a onclick="showPage('home')" class="active">Home</a></li>
+                <li><a onclick="showPage('schedule')">Schedule</a></li>
+                <li><a onclick="showPage('dashboard')">Dashboard</a></li>
+                <li><a onclick="showPage('resources')">Resources</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page active">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Learn <span class="highlight">Technology</span><br>Together</h1>
+                <p>Join a vibrant community of student developers, designers, and tech enthusiasts. Learn, collaborate, and build amazing projects with peer-to-peer support.</p>
+                <div class="cta-buttons">
+                    <a onclick="showPage('schedule')" class="btn btn-primary">Browse Sessions</a>
+                    <a onclick="showPage('resources')" class="btn btn-secondary">Explore Resources</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="section-header">
+                <h2>Why CodeConnect?</h2>
+                <p>Your all-in-one platform for collaborative tech learning</p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">📚</div>
+                    </div>
+                    <h3>Peer-Led Learning</h3>
+                    <p>Connect with fellow students who understand the challenges you face. Learn from those who've been in your shoes and share your knowledge with others.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">💻</div>
+                    </div>
+                    <h3>Live Coding Sessions</h3>
+                    <p>Join live tutoring sessions and group study opportunities. Work through real problems together and get instant feedback from peers.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🎯</div>
+                    </div>
+                    <h3>Track Your Progress</h3>
+                    <p>Monitor your learning journey with our comprehensive dashboard. Set goals, complete activities, and celebrate your achievements.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🚀</div>
+                    </div>
+                    <h3>Rich Resources</h3>
+                    <p>Access curated lessons, video tutorials, interactive quizzes, and downloadable materials designed specifically for student developers.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🤝</div>
+                    </div>
+                    <h3>Community Support</h3>
+                    <p>Never learn alone. Get help when you're stuck, celebrate wins together, and build lasting connections with fellow tech enthusiasts.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">⚡</div>
+                    </div>
+                    <h3>Project-Based Learning</h3>
+                    <p>Build real-world projects while learning. Apply concepts immediately and create a portfolio that showcases your skills.</p>
+                </div>
+            </div>
+
+            <div class="section-header">
+                <h2>Community Stats</h2>
+                <p>Join thousands of students learning together</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">1,247</div>
+                    <div class="stat-label">Active Students</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">342</div>
+                    <div class="stat-label">Weekly Sessions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5,689</div>
+                    <div class="stat-label">Resources Shared</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">96%</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCHEDULE PAGE -->
+    <div id="schedule" class="page">
+        <div class="container">
+            <div class="section-header">
+                <h2>Learning Schedule</h2>
+                <p>Join live tutoring sessions and group study opportunities</p>
+            </div>
+
+            <div class="schedule-filters">
+                <button class="filter-btn active">All Sessions</button>
+                <button class="filter-btn">Tutoring</button>
+                <button class="filter-btn">Study Groups</button>
+                <button class="filter-btn">This Week</button>
+                <button class="filter-btn">Next Week</button>
+            </div>
+
+            <div class="schedule-grid">
+                <div class="session-card tutoring">
+                    <span class="session-badge badge-tutoring">1-ON-1 TUTORING</span>
+                    <h3>JavaScript Fundamentals</h3>
+                    <div class="session-meta">
+                        <div class="meta-item">
+                            <span class="meta-icon">📅</span>
+                            <span>Monday, Dec 23, 2025</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">🕐</span>
+                            <span>4:00 PM - 5:30 PM EST</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">👤</span>
+                            <span>Tutor: Sarah Chen</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">📍</span>
+                            <span>Zoom Link (Max 5 students)</span>
+                        </div>
+                    </div>
+                    <p>Master the basics of JavaScript including variables, functions, arrays, and objects. Perfect for beginners!</p>
+                    <button class="btn btn-primary">Register Now</button>
+                </div>
+
+                <div class="session-card study-group">
+                    <span class="session-badge badge-study">STUDY GROUP</span>
+                    <h3>React Component Deep Dive</h3>
+                    <div class="session-meta">
+                        <div class="meta-item">
+                            <span class="meta-icon">📅</span>
+                            <span>Tuesday, Dec 24, 2025</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">🕐</span>
+                            <span>6:00 PM - 7:30 PM EST</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">👥</span>
+                            <span>Group Leader: Marcus Johnson</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">📍</span>
+                            <span>Discord (Open to all)</span>
+                        </div>
+                    </div>
+                    <p>Collaborative session on building reusable React components, hooks, and state management. Bring your questions!</p>
+                    <button class="btn btn-primary">Join Group</button>
+                </div>
+
+                <div class="session-card tutoring">
+                    <span class="session-badge badge-tutoring">1-ON-1 TUTORING</span>
+                    <h3>Python Data Structures</h3>
+                    <div class="session-meta">
+                        <div class="meta-item">
+                            <span class="meta-icon">📅</span>
+                            <span>Wednesday, Dec 25, 2025</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">🕐</span>
+                            <span>3:00 PM - 4:30 PM EST</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">👤</span>
+                            <span>Tutor: Alex Rivera</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">📍</span>
+                            <span>Google Meet (Max 4 students)</span>
+                        </div>
+                    </div>
+                    <p>Learn lists, dictionaries, sets, and tuples. Understand when and how to use each data structure effectively.</p>
+                    <button class="btn btn-primary">Register Now</button>
+                </div>
+
+                <div class="session-card study-group">
+                    <span class="session-badge badge-study">STUDY GROUP</span>
+                    <h3>CSS Grid & Flexbox Workshop</h3>
+                    <div class="session-meta">
+                        <div class="meta-item">
+                            <span class="meta-icon">📅</span>
+                            <span>Thursday, Dec 26, 2025</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">🕐</span>
+                            <span>5:00 PM - 6:30 PM EST</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">👥</span>
+                            <span>Group Leader: Emma Watson</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">📍</span>
+                            <span>Discord (Open to all)</span>
+                        </div>
+                    </div>
+                    <p>Build modern layouts with CSS Grid and Flexbox. Live coding session with real-world examples.</p>
+                    <button class="btn btn-primary">Join Group</button>
+                </div>
+
+                <div class="session-card tutoring">
+                    <span class="session-badge badge-tutoring">1-ON-1 TUTORING</span>
+                    <h3>Git & GitHub Essentials</h3>
+                    <div class="session-meta">
+                        <div class="meta-item">
+                            <span class="meta-icon">📅</span>
+                            <span>Friday, Dec 27, 2025</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">🕐</span>
+                            <span>4:00 PM - 5:00 PM EST</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">👤</span>
+                            <span>Tutor: James Park</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">📍</span>
+                            <span>Zoom Link (Max 6 students)</span>
+                        </div>
+                    </div>
+                    <p>Master version control with Git. Learn branching, merging, pull requests, and collaboration workflows.</p>
+                    <button class="btn btn-primary">Register Now</button>
+                </div>
+
+                <div class="session-card study-group">
+                    <span class="session-badge badge-study">STUDY GROUP</span>
+                    <h3>Algorithm Practice: Arrays & Strings</h3>
+                    <div class="session-meta">
+                        <div class="meta-item">
+                            <span class="meta-icon">📅</span>
+                            <span>Saturday, Dec 28, 2025</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">🕐</span>
+                            <span>2:00 PM - 4:00 PM EST</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">👥</span>
+                            <span>Group Leader: Kevin Liu</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">📍</span>
+                            <span>Discord (Open to all)</span>
+                        </div>
+                    </div>
+                    <p>Practice coding challenges together. Work through common array and string manipulation problems.</p>
+                    <button class="btn btn-primary">Join Group</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DASHBOARD PAGE -->
+    <div id="dashboard" class="page">
+        <div class="container">
+            <div class="section-header">
+                <h2>Your Learning Dashboard</h2>
+                <p>Track your progress and stay motivated</p>
+            </div>
+
+            <div class="dashboard-overview">
+                <div class="overview-card">
+                    <h4>Total Learning Hours</h4>
+                    <div class="overview-value">47</div>
+                    <div class="overview-progress">
+                        <div class="overview-progress-bar" style="width: 78%;"></div>
+                    </div>
+                    <div class="progress-label">78% towards 60 hour goal</div>
+                </div>
+
+                <div class="overview-card">
+                    <h4>Completed Activities</h4>
+                    <div class="overview-value">23</div>
+                    <div class="overview-progress">
+                        <div class="overview-progress-bar" style="width: 92%;"></div>
+                    </div>
+                    <div class="progress-label">23 of 25 activities done</div>
+                </div>
+
+                <div class="overview-card">
+                    <h4>Current Streak</h4>
+                    <div class="overview-value">12</div>
+                    <div class="overview-progress">
+                        <div class="overview-progress-bar" style="width: 60%;"></div>
+                    </div>
+                    <div class="progress-label">12 consecutive days</div>
+                </div>
+
+                <div class="overview-card">
+                    <h4>Sessions Attended</h4>
+                    <div class="overview-value">18</div>
+                    <div class="overview-progress">
+                        <div class="overview-progress-bar" style="width: 85%;"></div>
+                    </div>
+                    <div class="progress-label">18 of 21 scheduled sessions</div>
+                </div>
+            </div>
+
+            <div class="section-header">
+                <h2>Recent Activity</h2>
+                <p>Your latest learning milestones</p>
+            </div>
+
+            <div class="activity-list">
+                <div class="activity-item completed">
+                    <div class="activity-icon completed">✓</div>
+                    <div class="activity-details">
+                        <h4>JavaScript ES6 Features Quiz</h4>
+                        <p>Completed on Dec 18, 2025 • Score: 95%</p>
+                    </div>
+                    <div class="activity-status status-complete">COMPLETED</div>
+                </div>
+
+                <div class="activity-item completed">
+                    <div class="activity-icon completed">✓</div>
+                    <div class="activity-details">
+                        <h4>React Hooks Tutorial</h4>
+                        <p>Completed on Dec 17, 2025 • Duration: 2.5 hours</p>
+                    </div>
+                    <div class="activity-status status-complete">COMPLETED</div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon">⏳</div>
+                    <div class="activity-details">
+                        <h4>Building a REST API with Node.js</h4>
+                        <p>Started on Dec 16, 2025 • Progress: 65%</p>
+                    </div>
+                    <div class="activity-status status-progress">IN PROGRESS</div>
+                </div>
+
+                <div class="activity-item completed">
+                    <div class="activity-icon completed">✓</div>
+                    <div class="activity-details">
+                        <h4>CSS Grid Layout Challenge</h4>
+                        <p>Completed on Dec 15, 2025 • Project submitted</p>
+                    </div>
+                    <div class="activity-status status-complete">COMPLETED</div>
+                </div>
+
+                <div class="activity-item completed">
+                    <div class="activity-icon completed">✓</div>
+                    <div class="activity-details">
+                        <h4>Python Data Structures Workshop</h4>
+                        <p>Attended on Dec 14, 2025 • 1.5 hours</p>
+                    </div>
+                    <div class="activity-status status-complete">COMPLETED</div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon">⏳</div>
+                    <div class="activity-details">
+                        <h4>Git Branching Strategies</h4>
+                        <p>Started on Dec 13, 2025 • Progress: 40%</p>
+                    </div>
+                    <div class="activity-status status-progress">IN PROGRESS</div>
+                </div>
+            </div>
+
+            <div class="section-header">
+                <h2>Skill Progress</h2>
+                <p>Track your growth across different technologies</p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>JavaScript</h3>
+                    <div class="overview-progress">
+                        <div class="overview-progress-bar" style="width: 85%;"></div>
+                    </div>
+                    <p style="margin-top: 1rem;">Advanced level • 15 modules completed</p>
+                </div>
+
+                <div class="card">
+                    <h3>React</h3>
+                    <div class="overview-progress">
+                        <div class="overview-progress-bar" style="width: 70%;"></div>
+                    </div>
+                    <p style="margin-top: 1rem;">Intermediate level • 12 modules completed</p>
+                </div>
+
+                <div class="card">
+                    <h3>Python</h3>
+                    <div class="overview-progress">
+                        <div class="overview-progress-bar" style="width: 60%;"></div>
+                    </div>
+                    <p style="margin-top: 1rem;">Intermediate level • 9 modules completed</p>
+                </div>
+
+                <div class="card">
+                    <h3>CSS & Design</h3>
+                    <div class="overview-progress">
+                        <div class="overview-progress-bar" style="width: 75%;"></div>
+                    </div>
+                    <p style="margin-top: 1rem;">Advanced level • 11 modules completed</p>
+                </div>
+
+                <div class="card">
+                    <h3>Git & Version Control</h3>
+                    <div class="overview-progress">
+                        <div class="overview-progress-bar" style="width: 90%;"></div>
+                    </div>
+                    <p style="margin-top: 1rem;">Expert level • 8 modules completed</p>
+                </div>
+
+                <div class="card">
+                    <h3>Node.js</h3>
+                    <div class="overview-progress">
+                        <div class="overview-progress-bar" style="width: 45%;"></div>
+                    </div>
+                    <p style="margin-top: 1rem;">Beginner level • 6 modules completed</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESOURCES PAGE -->
+    <div id="resources" class="page">
+        <div class="container">
+            <div class="section-header">
+                <h2>Learning Resources</h2>
+                <p>Everything you need to master technology and programming</p>
+            </div>
+
+            <div class="resources-tabs">
+                <button class="tab-btn active" onclick="showTab('lessons')">Lessons</button>
+                <button class="tab-btn" onclick="showTab('videos')">Videos</button>
+                <button class="tab-btn" onclick="showTab('quizzes')">Quizzes</button>
+                <button class="tab-btn" onclick="showTab('downloads')">Downloads</button>
+            </div>
+
+            <!-- Lessons Tab -->
+            <div id="lessons" class="tab-content active">
+                <div class="resource-card">
+                    <div class="resource-thumbnail">📘</div>
+                    <div class="resource-content">
+                        <h4>JavaScript Basics: From Zero to Hero</h4>
+                        <div class="resource-meta">
+                            <span>⏱️ 8 hours</span>
+                            <span>📊 Beginner</span>
+                            <span>👥 1,234 students</span>
+                        </div>
+                        <p>Master the fundamentals of JavaScript with this comprehensive course. Learn variables, functions, loops, arrays, objects, and DOM manipulation through hands-on projects.</p>
+                        <div class="resource-actions">
+                            <button class="btn btn-primary btn-small">Start Learning</button>
+                            <button class="btn btn-secondary btn-small">Save for Later</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-thumbnail">⚛️</div>
+                    <div class="resource-content">
+                        <h4>Modern React Development</h4>
+                        <div class="resource-meta">
+                            <span>⏱️ 12 hours</span>
+                            <span>📊 Intermediate</span>
+                            <span>👥 892 students</span>
+                        </div>
+                        <p>Build modern web applications with React. Cover components, hooks, context API, routing, and state management with Redux Toolkit.</p>
+                        <div class="resource-actions">
+                            <button class="btn btn-primary btn-small">Start Learning</button>
+                            <button class="btn btn-secondary btn-small">Save for Later</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-thumbnail">🐍</div>
+                    <div class="resource-content">
+                        <h4>Python for Data Science</h4>
+                        <div class="resource-meta">
+                            <span>⏱️ 10 hours</span>
+                            <span>📊 Intermediate</span>
+                            <span>👥 756 students</span>
+                        </div>
+                        <p>Learn Python programming for data analysis and visualization. Work with NumPy, Pandas, Matplotlib, and real-world datasets.</p>
+                        <div class="resource-actions">
+                            <button class="btn btn-primary btn-small">Start Learning</button>
+                            <button class="btn btn-secondary btn-small">Save for Later</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-thumbnail">🎨</div>
+                    <div class="resource-content">
+                        <h4>Advanced CSS & Modern Layouts</h4>
+                        <div class="resource-meta">
+                            <span>⏱️ 6 hours</span>
+                            <span>📊 Intermediate</span>
+                            <span>👥 1,045 students</span>
+                        </div>
+                        <p>Master CSS Grid, Flexbox, custom properties, and modern techniques. Build responsive, beautiful layouts with confidence.</p>
+                        <div class="resource-actions">
+                            <button class="btn btn-primary btn-small">Start Learning</button>
+                            <button class="btn btn-secondary btn-small">Save for Later</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Videos Tab -->
+            <div id="videos" class="tab-content">
+                <div class="resource-card">
+                    <div class="resource-thumbnail">🎥</div>
+                    <div class="resource-content">
+                        <h4>Build a Full-Stack App in 60 Minutes</h4>
+                        <div class="resource-meta">
+                            <span>⏱️ 1 hour</span>
+                            <span>📊 Intermediate</span>
+                            <span>👁️ 3,245 views</span>
+                        </div>
+                        <p>Follow along as we build a complete MERN stack application from scratch. Includes authentication, database design, and deployment.</p>
+                        <div class="resource-actions">
+                            <button class="btn btn-primary btn-small">Watch Now</button>
+                            <button class="btn btn-secondary btn-small">Add to Playlist</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-thumbnail">🎬</div>
+                    <div class="resource-content">
+                        <h4>Git & GitHub Complete Tutorial</h4>
+                        <div class="resource-meta">
+                            <span>⏱️ 45 min</span>
+                            <span>📊 Beginner</span>
+                            <span>👁️ 5,678 views</span>
+                        </div>
+                        <p>Master version control with this comprehensive Git tutorial. Learn branching, merging, pull requests, and collaboration workflows.</p>
+                        <div class="resource-actions">
+                            <button class="btn btn-primary btn-small">Watch Now</button>
+                            <button class="btn btn-secondary btn-small">Add to Playlist</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-thumbnail">📹</div>
+                    <div class="resource-content">
+                        <h4>CSS Animations & Micro-interactions</h4>
+                        <div class="resource-meta">
+                            <span>⏱️ 30 min</span>
+                            <span>📊 Intermediate</span>
+                            <span>👁️ 2,156 views</span>
+                        </div>
+                        <p>Create smooth, professional animations with CSS. Learn keyframes, transitions, transforms, and animation best practices.</p>
+                        <div class="resource-actions">
+                            <button class="btn btn-primary btn-small">Watch Now</button>
+                            <button class="btn btn-secondary btn-small">Add to Playlist</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-thumbnail">🎞️</div>
+                    <div class="resource-content">
+                        <h4>Async JavaScript Explained Simply</h4>
+                        <div class="resource-meta">
+                            <span>⏱️ 25 min</span>
+                            <span>📊 Intermediate</span>
+                            <span>👁️ 4,321 views</span>
+                        </div>
+                        <p>Demystify promises, async/await, and asynchronous JavaScript. Understand the event loop and write better async code.</p>
+                        <div class="resource-actions">
+                            <button class="btn btn-primary btn-small">Watch Now</button>
+                            <button class="btn btn-secondary btn-small">Add to Playlist</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quizzes Tab -->
+            <div id="quizzes" class="tab-content">
+                <div class="quiz-container">
+                    <h3 style="font-family: 'Syne', sans-serif; font-size: 2rem; margin-bottom: 2rem; color: var(--primary-teal);">Test Your JavaScript Knowledge</h3>
+                    
+                    <div class="quiz-question">
+                        <h4>1. What does the 'let' keyword do in JavaScript?</h4>
+                        <div class="quiz-options">
+                            <div class="quiz-option">A) Declares a constant variable</div>
+                            <div class="quiz-option">B) Declares a block-scoped variable</div>
+                            <div class="quiz-option">C) Declares a global variable</div>
+                            <div class="quiz-option">D) Declares a function</div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>2. Which method is used to add elements to the end of an array?</h4>
+                        <div class="quiz-options">
+                            <div class="quiz-option">A) array.add()</div>
+                            <div class="quiz-option">B) array.append()</div>
+                            <div class="quiz-option">C) array.push()</div>
+                            <div class="quiz-option">D) array.insert()</div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>3. What is the purpose of the 'this' keyword in JavaScript?</h4>
+                        <div class="quiz-options">
+                            <div class="quiz-option">A) Refers to the current function</div>
+                            <div class="quiz-option">B) Refers to the execution context</div>
+                            <div class="quiz-option">C) Creates a new variable</div>
+                            <div class="quiz-option">D) Declares a class</div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" style="margin-top: 2rem;">Submit Quiz</button>
+                </div>
+
+                <div style="margin-top: 3rem;">
+                    <h3 style="font-family: 'Syne', sans-serif; font-size: 1.8rem; margin-bottom: 2rem;">More Quizzes</h3>
+                    <div class="cards-grid">
+                        <div class="card">
+                            <h3>React Fundamentals Quiz</h3>
+                            <p>Test your knowledge of React components, props, and state management.</p>
+                            <div class="resource-meta">
+                                <span>10 questions</span>
+                                <span>15 minutes</span>
+                            </div>
+                            <button class="btn btn-primary" style="margin-top: 1rem;">Start Quiz</button>
+                        </div>
+
+                        <div class="card">
+                            <h3>Python Basics Assessment</h3>
+                            <p>Evaluate your understanding of Python syntax and data structures.</p>
+                            <div class="resource-meta">
+                                <span>15 questions</span>
+                                <span>20 minutes</span>
+                            </div>
+                            <button class="btn btn-primary" style="margin-top: 1rem;">Start Quiz</button>
+                        </div>
+
+                        <div class="card">
+                            <h3>CSS Flexbox Challenge</h3>
+                            <p>Master CSS Flexbox with practical layout challenges.</p>
+                            <div class="resource-meta">
+                                <span>8 questions</span>
+                                <span>12 minutes</span>
+                            </div>
+                            <button class="btn btn-primary" style="margin-top: 1rem;">Start Quiz</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Downloads Tab -->
+            <div id="downloads" class="tab-content">
+                <div class="resource-card">
+                    <div class="resource-thumbnail">📄</div>
+                    <div class="resource-content">
+                        <h4>JavaScript ES6+ Cheat Sheet</h4>
+                        <div class="resource-meta">
+                            <span>📦 PDF</span>
+                            <span>⬇️ 2,345 downloads</span>
+                            <span>📄 12 pages</span>
+                        </div>
+                        <p>Comprehensive reference guide for modern JavaScript features including arrow functions, destructuring, spread operator, and more.</p>
+                        <div class="resource-actions">
+                            <button class="btn btn-primary btn-small">Download PDF</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-thumbnail">📊</div>
+                    <div class="resource-content">
+                        <h4>React Hooks Reference Guide</h4>
+                        <div class="resource-meta">
+                            <span>📦 PDF</span>
+                            <span>⬇️ 1,867 downloads</span>
+                            <span>📄 8 pages</span>
+                        </div>
+                        <p>Complete guide to React Hooks with examples. Covers useState, useEffect, useContext, and custom hooks.</p>
+                        <div class="resource-actions">
+                            <button class="btn btn-primary btn-small">Download PDF</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-thumbnail">🗂️</div>
+                    <div class="resource-content">
+                        <h4>CSS Properties Quick Reference</h4>
+                        <div class="resource-meta">
+                            <span>📦 PDF</span>
+                            <span>⬇️ 3,124 downloads</span>
+                            <span>📄 15 pages</span>
+                        </div>
+                        <p>Visual guide to CSS properties with examples. Perfect quick reference for styling projects.</p>
+                        <div class="resource-actions">
+                            <button class="btn btn-primary btn-small">Download PDF</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-thumbnail">💾</div>
+                    <div class="resource-content">
+                        <h4>Git Commands Cheat Sheet</h4>
+                        <div class="resource-meta">
+                            <span>📦 PDF</span>
+                            <span>⬇️ 4,567 downloads</span>
+                            <span>📄 6 pages</span>
+                        </div>
+                        <p>Essential Git commands for everyday development. Includes branching, merging, and collaboration workflows.</p>
+                        <div class="resource-actions">
+                            <button class="btn btn-primary btn-small">Download PDF</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-thumbnail">🔧</div>
+                    <div class="resource-content">
+                        <h4>Web Development Project Starter Template</h4>
+                        <div class="resource-meta">
+                            <span>📦 ZIP</span>
+                            <span>⬇️ 1,234 downloads</span>
+                            <span>💻 Full Stack</span>
+                        </div>
+                        <p>Complete project structure with HTML, CSS, JavaScript boilerplate. Includes best practices and folder organization.</p>
+                        <div class="resource-actions">
+                            <button class="btn btn-primary btn-small">Download ZIP</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>CodeConnect</h4>
+                <p style="color: var(--text-gray); margin-top: 1rem;">Empowering students to learn technology through peer collaboration and community support.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#" onclick="showPage('home')">Home</a></li>
+                    <li><a href="#" onclick="showPage('schedule')">Schedule</a></li>
+                    <li><a href="#" onclick="showPage('dashboard')">Dashboard</a></li>
+                    <li><a href="#" onclick="showPage('resources')">Resources</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Community</h4>
+                <ul>
+                    <li><a href="#">Discord Server</a></li>
+                    <li><a href="#">Study Groups</a></li>
+                    <li><a href="#">Become a Tutor</a></li>
+                    <li><a href="#">Student Stories</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Guidelines</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 CodeConnect. Created by students, for students. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Page Navigation
+        function showPage(pageName) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+
+            // Show selected page
+            document.getElementById(pageName).classList.add('active');
+
+            // Update nav links
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => link.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Tab Navigation for Resources
+        function showTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+
+            // Update tab buttons
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // Quiz option selection
+        document.addEventListener('DOMContentLoaded', function() {
+            const quizOptions = document.querySelectorAll('.quiz-option');
+            quizOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove selected from siblings
+                    const siblings = this.parentElement.querySelectorAll('.quiz-option');
+                    siblings.forEach(sib => sib.classList.remove('selected'));
+                    
+                    // Add selected to clicked option
+                    this.classList.add('selected');
+                });
+            });
+        });
+
+        // Filter buttons interaction
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
